@@ -1,11 +1,16 @@
 package kodlamaio.hrms.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Table(name="employers")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","job_ads"})
 public class Employer {
 	
 	@Id
@@ -23,14 +29,17 @@ public class Employer {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="userId")
+	@Column(name="user_id")
 	private int userId;
 	
-	@Column(name="webSite")
+	@Column(name="web_site")
 	private String webSite;
 	
 	@Column(name="telephone")
 	private String telephone;
+	
+	@OneToMany(mappedBy ="employer")
+	private List<JobAds> jobAds;
 
 	public int getId() {
 		return id;
